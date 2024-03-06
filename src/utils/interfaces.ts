@@ -168,6 +168,18 @@ export interface IAssignmentResponse {
   
 }
 
+// utils/interfaces.ts
+
+export interface IStudentTask {
+  id: number;
+  name: string;
+  course_id: number;
+  max_team_size: number;
+  staggered_deadline: Date | null; // or string, depending on how dates are handled in your app
+  // Add any other fields that might be necessary
+}
+
+
 
 // Assuming that your transformation function for assignment responses might look like this
 export const transformAssignmentResponse = (assignmentResponse: string): IAssignmentResponse => {
