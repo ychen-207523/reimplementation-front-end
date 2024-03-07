@@ -5,57 +5,30 @@ import useAPI from "hooks/useAPI";
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./studentTaskColumns"; // Defined in studentTaskColumns.tsx
 
-// Import interfaces and types as needed
-import { IStudentTask, IUserResponse } from "../../utils/interfaces";
-import { Row as TRow } from "@tanstack/table-core/build/lib/types";
-import { userColumns as USER_COLUMNS } from "../Users/userColumns"; // Defined  in the utils/interfaces file
+/**
+ * @author Henry McKinney on March, 2024
+ */
 
 const StudentTasks = () => {
   const { error, isLoading, data: studentTasks, sendRequest: fetchStudentTasks } = useAPI();
-  const navigate = useNavigate();
+  const { data: coursesResponse, sendRequest: fetchCourses } = useAPI();
 
   // Function to fetch student tasks
   useEffect(() => {
-    fetchStudentTasks({ url: '/student_tasks' }); // Verify this is the correct endpoint
+    fetchStudentTasks({ url: '/assignments' }); // Verify this is the correct endpoint
   }, [fetchStudentTasks]);
 
-  // // Define callback functions for any row actions
-  // const onEditTask = useCallback((row: Row<IStudentTask>) => {
-  //   navigate(`/tasks/edit/${row.original.id}`);
-  // }, [navigate]);
-  //
-  // const onDeleteTask = useCallback((row: Row<IStudentTask>) => {
-  //   console.log(`Delete task with ID: ${row.original.id}`);
-  // }, []);
-  //
-  // // Define the table columns with callbacks
-  // const tableColumns = useMemo(() => STUDENT_TASK_COLUMNS(onEditTask, onDeleteTask), [onEditTask, onDeleteTask]);
-
-  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<{
-    visible: boolean;
-    data?: IUserResponse;
-  }>({ visible: false });
-
-
-  const onEditHandle = useCallback(
-    (row: TRow<IUserResponse>) => navigate(`edit/${row.original.id}`),
-    [navigate]
-  );
-
-  const onDeleteHandle = useCallback(
-    (row: TRow<IUserResponse>) => setShowDeleteConfirmation({ visible: true, data: row.original }),
-    []
-  );
-
+  // Define the table columns with callbacks
   const tableColumns = useMemo(
-    () => USER_COLUMNS(onEditHandle, onDeleteHandle),
-    [onDeleteHandle, onEditHandle]
+    () => STUDENT_TASK_COLUMNS(),
+    []
   );
 
   // Memoize the table data
   const tableData = useMemo(() => {
     if (isLoading || !studentTasks) return [];
-    if ('data' in studentTasks) return studentTasks.data; // Assuming 'data' is the array of tasks
+    // Data should be the array of tasks
+    if ('data' in studentTasks) return studentTasks.data;
     return studentTasks; // Or just return studentTasks if it's already the correct format
   }, [studentTasks, isLoading]);
 
@@ -66,9 +39,6 @@ const StudentTasks = () => {
       <Row className="mb-2">
         <Col>
           <h2>Student Tasks</h2>
-        </Col>
-        <Col className="text-right">
-          <Button variant="primary" onClick={() => navigate('/tasks/new')}>Add New Task</Button>
         </Col>
       </Row>
       <Table

@@ -1,66 +1,32 @@
-import { createColumnHelper, Row } from "@tanstack/react-table";
-import { Button } from "react-bootstrap";
-import { BsPencilFill, BsTrashFill } from "react-icons/bs";
-import { IStudentTask } from "../../utils/interfaces"; // Interface is defined  in  utils/interfaces file
+import { BsPencilFill, BsPersonXFill } from "react-icons/bs";
+import { Row, createColumnHelper } from "@tanstack/react-table";
 
-/**
- * @author Henry McKinney on March, 2024
+ /**
+  * @author Henry McKinney on March, 2024
  */
 
-type EditFn = (row: Row<IStudentTask>) => void;
-type DeleteFn = (row: Row<IStudentTask>) => void;
+import { Button } from "react-bootstrap";
+import { IAssignmentResponse as IAssignment } from "../../utils/interfaces";
 
-const columnHelper = createColumnHelper<IStudentTask>();
+type Fn = (row: Row<IAssignment>) => void;
+const columnHelper = createColumnHelper<IAssignment>();
 
-export const studentTaskColumns = (handleEdit: EditFn, handleDelete: DeleteFn) => [
-  columnHelper.accessor('id', {
-    header: 'ID',
-    cell: info => info.getValue(),
-    enableColumnFilter: false,
-    enableSorting: false,
+//Define headers and DB keys for studentTaskColumns
+export const studentTaskColumns = () => [
+  columnHelper.accessor("name", {
+    header: "Name",
+  }),
+  //TODO: Make this access course name. DB Needs to be updated
+  columnHelper.accessor("course_id", {
+    header: "Course Name",
+  }),
+  //TODO: Make this access due date. DB Needs to be updated
+  columnHelper.accessor("created_at", {
+    header: "Creation Date",
   }),
 
-  columnHelper.accessor('name', {
-    header: 'Assignment Name',
-    cell: info => info.getValue(),
-    enableSorting: true,
+  columnHelper.accessor("updated_at", {
+    header: "Updated Date",
   }),
 
-  columnHelper.accessor('course_id', {
-    header: 'Course ID',
-    cell: info => info.getValue(),
-    enableSorting: true,
-  }),
-
-  columnHelper.accessor('max_team_size', {
-    header: 'Max Team Size',
-    cell: info => info.getValue(),
-    enableSorting: true,
-  }),
-
-  // columnHelper.accessor('staggered_deadline', {
-  //   header: 'Deadline',
-  //   cell: info => info.getValue() ? new Date(info.getValue()).toLocaleDateString() : '',
-  //   enableSorting: true,
-  // }),
-
-  columnHelper.display({
-    id: 'actions',
-    header: 'Actions',
-    cell: ({ row }) => (
-      <>
-        <Button variant="outline-primary" size="sm" onClick={() => handleEdit(row)}>
-          <BsPencilFill />
-        </Button>
-        <Button
-          variant="outline-danger"
-          size="sm"
-          className="ms-2"
-          onClick={() => handleDelete(row)}
-        >
-          <BsTrashFill />
-        </Button>
-      </>
-    ),
-  }),
 ];
