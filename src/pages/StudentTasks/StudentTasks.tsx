@@ -4,6 +4,7 @@ import Table from "components/Table/Table";
 import useAPI from "hooks/useAPI";
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./studentTaskColumns"; // Defined in studentTaskColumns.tsx
+import { StudentTasksBox as STUDENT_TASKS_BOX} from "./StudentTasksBox";
 
 /**
  * @author Henry McKinney on March, 2024
@@ -41,6 +42,7 @@ const StudentTasks = () => {
           <h2>Student Tasks</h2>
         </Col>
       </Row>
+      <STUDENT_TASKS_BOX></STUDENT_TASKS_BOX>
       <Table
         data={tableData}
         columns={tableColumns}
