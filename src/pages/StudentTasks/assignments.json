@@ -53,5 +53,22 @@
             "stage_deadline": "3/28",
             "publishing_rights": true
         }
-    ]
+    ],
+    "duties": [
+        {
+            "name": "Past duty",
+            "dueDate": "2023-03-05"
+        },
+        {
+            "name": "Future duty",
+            "dueDate": "2023-03-26"
+        }
+    ],
+    "revisions": [
+
+    ],
+    "studentsTeamedWith": {
+        "CSC540, Fall 2023": ["classmate one", "classmate two"],
+        "CSC515, Spring 2024": ["classmate three", "classmate four"]
+    }
 }

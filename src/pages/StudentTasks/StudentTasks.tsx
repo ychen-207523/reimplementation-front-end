@@ -5,6 +5,7 @@ import useAPI from "hooks/useAPI";
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./studentTaskColumns"; // Defined in studentTaskColumns.tsx
 import { StudentTasksBox as STUDENT_TASKS_BOX} from "./StudentTasksBox";
+import testData from './assignments.json'
 
 /**
  * @author Henry McKinney on March, 2024
@@ -13,6 +14,10 @@ import { StudentTasksBox as STUDENT_TASKS_BOX} from "./StudentTasksBox";
 const StudentTasks = () => {
   const { error, isLoading, data: studentTasks, sendRequest: fetchStudentTasks } = useAPI();
   const { data: coursesResponse, sendRequest: fetchCourses } = useAPI();
+
+  const duties = testData.duties
+  const taskRevisions = testData.revisions
+  const studentsTeamedWith = testData.studentsTeamedWith
 
   // Function to fetch student tasks
   useEffect(() => {
@@ -42,7 +47,10 @@ const StudentTasks = () => {
           <h2>Student Tasks</h2>
         </Col>
       </Row>
-      <STUDENT_TASKS_BOX></STUDENT_TASKS_BOX>
+      <STUDENT_TASKS_BOX
+      duties={duties}
+      revisions={taskRevisions}
+      studentsTeamedWith={studentsTeamedWith}/>
       <Table
         data={tableData}
         columns={tableColumns}
