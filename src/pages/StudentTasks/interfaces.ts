@@ -1,6 +1,6 @@
 export interface Duty {
   name: string;
-  dueDate: String;
+  dueDate: string;
 }
 
 export interface Revision {

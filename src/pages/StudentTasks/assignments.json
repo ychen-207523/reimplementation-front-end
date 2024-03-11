@@ -57,11 +57,11 @@
     "duties": [
         {
             "name": "Past duty",
-            "dueDate": "2023-03-05"
+            "dueDate": "2024-03-05"
         },
         {
             "name": "Future duty",
-            "dueDate": "2023-03-26"
+            "dueDate": "2024-03-26"
         }
     ],
     "revisions": [
