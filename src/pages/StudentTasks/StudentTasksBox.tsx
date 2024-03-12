@@ -47,6 +47,21 @@ export const StudentTasksBox: React.FC<StudentTasksBoxParampeters> = ({ duties, 
       </strong>
       <br />
 
+      {
+        Object.entries(studentsTeamedWith).map(([semester, students]) => (
+          <div>
+            <strong>&nbsp;&nbsp;<span className="tasknum">&nbsp;
+              {students.length}&nbsp;</span>
+              &nbsp;&nbsp;{semester}
+              <br /></strong><br />
+            {students.map((student => (
+              <div>
+                <span className="notification">&nbsp; &raquo; {student} </span>
+              </div>
+            )))}
+          </div>
+        ))
+      }
     </div>
   )
 
