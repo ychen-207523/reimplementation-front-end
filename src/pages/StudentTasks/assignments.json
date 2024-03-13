@@ -53,5 +53,34 @@
             "stage_deadline": "3/28",
             "publishing_rights": true
         }
-    ]
+    ],
+    "duties": [
+        {
+            "name": "Assignment 1",
+            "dueDate": "2024-03-10"
+        },
+        {
+            "name": "Past duty",
+            "dueDate": "2024-03-05"
+        },
+        {
+            "name": "Future duty",
+            "dueDate": "2024-03-26"
+        },
+        {
+            "name": "Project 1",
+            "dueDate": "2025-01-26"
+        },
+        {
+            "name": "Personal project",
+            "dueDate": "2025-03-21"
+        }
+    ],
+    "revisions": [
+
+    ],
+    "studentsTeamedWith": {
+        "CSC540, Fall 2023": ["classmate one", "classmate two", "classmate three", "classmate four"],
+        "CSC515, Spring 2024": ["classmate five", "classmate six", "classmate seven"]
+    }
 }
