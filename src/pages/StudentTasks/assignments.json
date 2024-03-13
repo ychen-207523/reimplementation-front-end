@@ -1,0 +1,86 @@
+
+{
+    "assignments": [
+        {
+            "name": "Assignment 1",
+            "course_id": "CSC 517",
+            "topic": "Ruby",
+            "current_stage": "in progress",
+            "review_grade": {
+                "comment": "3/5"
+            },
+            "has_badge": false,
+            "stage_deadline": "3/18",
+            "publishing_rights": true
+        },
+        {
+            "name": "Assignment 2",
+            "course_id": "CSC 517",
+            "topic": "Rails",
+            "current_stage": "in progress",
+            "review_grade": "N/A",
+            "has_badge": true,
+            "stage_deadline": "3/18",
+            "publishing_rights": true
+        },
+        {
+            "name": "Assignment 3",
+            "course_id": "CSC 517",
+            "topic": "Git",
+            "current_stage": "in progress",
+            "review_grade": "N/A",
+            "has_badge": true,
+            "stage_deadline": "3/18",
+            "publishing_rights": false
+        },
+        {
+            "name": "Assignment 1",
+            "course_id": "CSC 522",
+            "topic": "AI",
+            "current_stage": "in progress",
+            "review_grade": "N/A",
+            "has_badge": false,
+            "stage_deadline": "3/25",
+            "publishing_rights": true
+        },
+        {
+            "name": "Assignment 2",
+            "course_id": "CSC 522",
+            "topic": "Random Forest",
+            "current_stage": "finished",
+            "review_grade": "N/A",
+            "has_badge": false,
+            "stage_deadline": "3/28",
+            "publishing_rights": true
+        }
+    ],
+    "duties": [
+        {
+            "name": "Assignment 1",
+            "dueDate": "2024-03-10"
+        },
+        {
+            "name": "Past duty",
+            "dueDate": "2024-03-05"
+        },
+        {
+            "name": "Future duty",
+            "dueDate": "2024-03-26"
+        },
+        {
+            "name": "Project 1",
+            "dueDate": "2025-01-26"
+        },
+        {
+            "name": "Personal project",
+            "dueDate": "2025-03-21"
+        }
+    ],
+    "revisions": [
+
+    ],
+    "studentsTeamedWith": {
+        "CSC540, Fall 2023": ["classmate one", "classmate two", "classmate three", "classmate four"],
+        "CSC515, Spring 2024": ["classmate five", "classmate six", "classmate seven"]
+    }
+}
