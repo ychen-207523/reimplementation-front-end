@@ -13,6 +13,9 @@ const StudentTasks = () => {
   const { error, isLoading, data: studentTasks, sendRequest: fetchStudentTasks } = useAPI();
   const { data: coursesResponse, sendRequest: fetchCourses } = useAPI();
 
+
+
+
   // Function to fetch student tasks
   useEffect(() => {
     fetchStudentTasks({ url: '/assignments' }); // Verify this is the correct endpoint
