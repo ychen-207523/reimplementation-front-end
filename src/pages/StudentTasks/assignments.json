@@ -3,7 +3,7 @@
     "assignments": [
         {
             "name": "Assignment 1",
-            "course_id": "CSC 517",
+            "course_name": "CSC 517",
             "topic": "Ruby",
             "current_stage": "in progress",
             "review_grade": {
@@ -15,7 +15,7 @@
         },
         {
             "name": "Assignment 2",
-            "course_id": "CSC 517",
+            "course_name": "CSC 517",
             "topic": "Rails",
             "current_stage": "in progress",
             "review_grade": "N/A",
@@ -25,7 +25,7 @@
         },
         {
             "name": "Assignment 3",
-            "course_id": "CSC 517",
+            "course_name": "CSC 517",
             "topic": "Git",
             "current_stage": "in progress",
             "review_grade": "N/A",
@@ -35,7 +35,7 @@
         },
         {
             "name": "Assignment 1",
-            "course_id": "CSC 522",
+            "course_name": "CSC 522",
             "topic": "AI",
             "current_stage": "in progress",
             "review_grade": "N/A",
@@ -45,7 +45,7 @@
         },
         {
             "name": "Assignment 2",
-            "course_id": "CSC 522",
+            "course_name": "CSC 522",
             "topic": "Random Forest",
             "current_stage": "finished",
             "review_grade": "N/A",

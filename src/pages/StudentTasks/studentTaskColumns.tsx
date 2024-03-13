@@ -1,32 +1,47 @@
 import { BsPencilFill, BsPersonXFill } from "react-icons/bs";
 import { Row, createColumnHelper } from "@tanstack/react-table";
 
- /**
-  * @author Henry McKinney on March, 2024
+/**
+ * @author Henry McKinney on March, 2024
  */
 
 import { Button } from "react-bootstrap";
-import { IAssignmentResponse as IAssignment } from "../../utils/interfaces";
+// Import to IStudentTask from local interface file
+import { IStudentTask } from "../../pages/StudentTasks/interfaces";
 
-type Fn = (row: Row<IAssignment>) => void;
-const columnHelper = createColumnHelper<IAssignment>();
+// Use IStudentTask for the Row type
+type Fn = (row: Row<IStudentTask>) => void;
+// Use IStudentTask for the ColumnHelper type
+const columnHelper = createColumnHelper<IStudentTask>();
 
-//Define headers and DB keys for studentTaskColumns
+// Define headers and DB keys for studentTaskColumns
+
+// Accessor represents DB key but for this we are using assignments.json.
+// If in production table keys differ from columns accessors below they should be adjusted accordingly.
 export const studentTaskColumns = () => [
   columnHelper.accessor("name", {
     header: "Name",
   }),
-  //TODO: Make this access course name. DB Needs to be updated
-  columnHelper.accessor("course_id", {
+  columnHelper.accessor("course_name", {
     header: "Course Name",
   }),
-  //TODO: Make this access due date. DB Needs to be updated
-  columnHelper.accessor("created_at", {
-    header: "Creation Date",
+  columnHelper.accessor("topic", {
+    header: "Topic",
   }),
-
-  columnHelper.accessor("updated_at", {
-    header: "Updated Date",
+  columnHelper.accessor("current_stage", {
+    header: "Current Stage",
   }),
-
+  columnHelper.accessor((row) => row.review_grade?.comment, {
+    header: "Review Comment",
+    id: "review_comment", // Custom ID since this is a derived accessor
+  }),
+  columnHelper.accessor("has_badge", {
+    header: "Has Badge",
+  }),
+  columnHelper.accessor("stage_deadline", {
+    header: "Stage Deadline",
+  }),
+  columnHelper.accessor("publishing_rights", {
+    header: "Publishing Rights",
+  }),
 ];
