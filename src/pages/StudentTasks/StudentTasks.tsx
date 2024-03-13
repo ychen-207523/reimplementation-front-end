@@ -15,9 +15,11 @@ const StudentTasks = () => {
   const { error, isLoading, data: studentTasks, sendRequest: fetchStudentTasks } = useAPI();
   const { data: coursesResponse, sendRequest: fetchCourses } = useAPI();
 
+
   const duties = testData.duties
   const taskRevisions = testData.revisions
   const studentsTeamedWith = testData.studentsTeamedWith
+
 
   // Function to fetch student tasks
   useEffect(() => {
