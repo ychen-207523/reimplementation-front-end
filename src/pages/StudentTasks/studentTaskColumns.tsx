@@ -3,6 +3,7 @@ import { Row, createColumnHelper } from "@tanstack/react-table";
 
 /**
  * @author Henry McKinney on March, 2024
+ * @author David White on March, 2024
  */
 
 import { Button } from "react-bootstrap";
@@ -39,9 +40,24 @@ export const studentTaskColumns = () => [
     header: "Has Badge",
   }),
   columnHelper.accessor("stage_deadline", {
-    header: "Stage Deadline",
-  }),
+    header: props => (
+      <>
+        <span>Stage Deadline</span>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/icons/info.png`}
+            alt="Information Tooltip"
+            height="18"
+          />
+      </>),  }),
   columnHelper.accessor("publishing_rights", {
-    header: "Publishing Rights",
+    header: props => (
+      <>
+        <span>Publishing Rights</span>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/icons/info.png`}
+            alt="Information Tooltip"
+            height="18"
+          />
+      </>),
   }),
 ];
