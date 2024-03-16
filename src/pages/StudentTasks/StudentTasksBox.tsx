@@ -1,5 +1,4 @@
 import React from 'react';
-import "./StudentTasksBox.css"
 import {Duty, Revision, StudentsTeamedWith} from './interfaces'
 
 interface StudentTasksBoxParampeters {

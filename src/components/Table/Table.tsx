@@ -18,6 +18,7 @@ import RowSelectCheckBox from "./RowSelectCheckBox";
 
 /**
  * @author Ankur Mundra on May, 2023
+ * @author David White on March, 2024
  */
 
 interface TableProps {
@@ -29,6 +30,7 @@ interface TableProps {
   tableSize?: { span: number; offset: number };
   columnVisibility?: Record<string, boolean>;
   onSelectionChange?: (selectedData: Record<any, any>[]) => void;
+  headerCellStyle?: React.CSSProperties;
 }
 
 const Table: React.FC<TableProps> = ({
@@ -40,6 +42,7 @@ const Table: React.FC<TableProps> = ({
   onSelectionChange,
   columnVisibility = {},
   tableSize = { span: 12, offset: 0 },
+  headerCellStyle = {}
 }) => {
   const colsPlusSelectable = useMemo(() => {
     const selectableColumn: any = {
@@ -155,7 +158,7 @@ const Table: React.FC<TableProps> = ({
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <th key={header.id} colSpan={header.colSpan}>
+                      <th key={header.id} colSpan={header.colSpan} style={headerCellStyle}>
                         {header.isPlaceholder ? null : (
                           <>
                             <div

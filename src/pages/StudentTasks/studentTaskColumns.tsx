@@ -8,7 +8,7 @@ import { Row, createColumnHelper } from "@tanstack/react-table";
 
 import { Button } from "react-bootstrap";
 // Import to IStudentTask from local interface file
-import { IStudentTask } from "../../pages/StudentTasks/interfaces";
+import { IStudentTask } from "./interfaces";
 
 // Use IStudentTask for the Row type
 type Fn = (row: Row<IStudentTask>) => void;
@@ -20,6 +20,11 @@ const columnHelper = createColumnHelper<IStudentTask>();
 // Accessor represents DB key but for this we are using assignments.json.
 // If in production table keys differ from columns accessors below they should be adjusted accordingly.
 export const studentTaskColumns = () => [
+  columnHelper.display({
+    id: 'actions',
+    cell: props => <span>OIJOWIEJF</span> ,
+  }),
+
   columnHelper.accessor("name", {
     header: "Name",
   }),
@@ -28,6 +33,7 @@ export const studentTaskColumns = () => [
   }),
   columnHelper.accessor("topic", {
     header: "Topic",
+    
   }),
   columnHelper.accessor("current_stage", {
     header: "Current Stage",
@@ -47,6 +53,7 @@ export const studentTaskColumns = () => [
             src={`${process.env.PUBLIC_URL}/assets/icons/info.png`}
             alt="Information Tooltip"
             height="18"
+            
           />
       </>),  }),
   columnHelper.accessor("publishing_rights", {
