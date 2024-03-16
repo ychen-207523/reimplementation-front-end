@@ -20,10 +20,6 @@ const columnHelper = createColumnHelper<IStudentTask>();
 // Accessor represents DB key but for this we are using assignments.json.
 // If in production table keys differ from columns accessors below they should be adjusted accordingly.
 export const studentTaskColumns = () => [
-  columnHelper.display({
-    id: 'actions',
-    cell: props => <span>OIJOWIEJF</span> ,
-  }),
 
   columnHelper.accessor("name", {
     header: "Name",
