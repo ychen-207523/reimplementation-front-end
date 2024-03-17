@@ -65,3 +65,5 @@ export const StudentTasksBox: React.FC<StudentTasksBoxParampeters> = ({ duties, 
   )
 
 }
+
+export default StudentTasksBox;

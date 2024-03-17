@@ -1,18 +1,29 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, Suspense, lazy } from 'react';
 // import { useNavigate } from 'react-router-dom'; // Uncomment if navigation is needed in the future
-import Table from "components/Table/Table";
 // Removed useAPI import as it's currently not needed for JSON data. Uncomment when fetching data from an API.
 // import useAPI from "hooks/useAPI";
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./StudentTaskColumns"; // Defined in studentTaskColumns.tsx
-import { StudentTasksBox as STUDENT_TASKS_BOX } from "./StudentTasksBox";
 import testData from './assignments.json';
 import "./StudentTasks.css";
 
 
 /**
  * @author Henry McKinney on March, 2024
+ * @author David White on March, 2024
  */
+
+// Use Lazy loading for components. Forward promise after two seconds.
+const fakeDelay = (promise: Promise<any>) => {
+  return new Promise(res => {
+    setTimeout(res, 2000);
+  }).then(() => promise)
+}
+
+// Load components lazily. 
+const Table = lazy(() => fakeDelay(import('../../components/Table/Table')));
+const StudentTasksBox = lazy(() => fakeDelay(import('./StudentTasksBox')));
+
 
 const StudentTasks = () => {
   // These hooks can be uncommented and used when integrating API calls
@@ -51,17 +62,25 @@ const StudentTasks = () => {
             <h2>Student Tasks</h2>
           </Col>
         </Row>
-        <STUDENT_TASKS_BOX
-          duties={duties}
-          revisions={taskRevisions}
-          studentsTeamedWith={studentsTeamedWith} />
-        <Table
-          data={tableData}
-          columns={tableColumns}
-          headerCellStyle={{background: "#f2f2f2"}}
-          // isLoading prop and related conditions can be uncommented when fetching data asynchronously
-          // isLoading={isLoading}
-        />
+
+        {/** Display fallback until task box is loaded. */}
+        <Suspense fallback={<span>Loading Task box...</span>}>
+          <StudentTasksBox
+            duties={duties}
+            revisions={taskRevisions}
+            studentsTeamedWith={studentsTeamedWith} />
+        </Suspense>
+
+        {/** Display fallback until table is loaded. */}
+        <Suspense fallback={<span>Loading table...</span>}>
+          <Table
+            data={tableData}
+            columns={tableColumns}
+            headerCellStyle={{background: "#f2f2f2"}}
+            // isLoading prop and related conditions can be uncommented when fetching data asynchronously
+            // isLoading={isLoading}
+          />
+        </Suspense>
         {/* Any other UI components like modals for confirmation can be put here */}
       </Container>
     </div>
