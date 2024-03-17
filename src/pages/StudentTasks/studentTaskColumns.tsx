@@ -1,5 +1,7 @@
 import { BsPencilFill, BsPersonXFill } from "react-icons/bs";
 import { Row, createColumnHelper } from "@tanstack/react-table";
+import ToolTip from "components/ToolTip";
+
 
 /**
  * @author Henry McKinney on March, 2024
@@ -45,22 +47,13 @@ export const studentTaskColumns = () => [
     header: props => (
       <>
         <span>Stage Deadline</span>
-          <img
-            src={`${process.env.PUBLIC_URL}/assets/icons/info.png`}
-            alt="Information Tooltip"
-            height="18"
-            
-          />
+          <ToolTip id={`stage-deadline-tooltip`} info={"You can change \"Preferred Time Zone\" in \"Profile\" in the banner."} />
       </>),  }),
   columnHelper.accessor("publishing_rights", {
     header: props => (
       <>
         <span>Publishing Rights</span>
-          <img
-            src={`${process.env.PUBLIC_URL}/assets/icons/info.png`}
-            alt="Information Tooltip"
-            height="18"
-          />
+          <ToolTip id={`publishing-rights-tooltip`} info={"Grant publishing rights?"} />
       </>),
   }),
 ];
