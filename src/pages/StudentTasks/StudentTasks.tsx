@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useMemo, Suspense, lazy } from
 // Removed useAPI import as it's currently not needed for JSON data. Uncomment when fetching data from an API.
 // import useAPI from "hooks/useAPI";
 import { Button, Container, Row, Col } from 'react-bootstrap';
-import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./StudentTaskColumns"; // Defined in studentTaskColumns.tsx
+import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./StudentTaskColumns"; // Defined in StudentTaskColumns.tsx
 import testData from './assignments.json';
 import "./StudentTasks.css";
 
