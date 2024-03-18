@@ -1,13 +1,16 @@
 import { BsPencilFill, BsPersonXFill } from "react-icons/bs";
 import { Row, createColumnHelper } from "@tanstack/react-table";
+import ToolTip from "components/ToolTip";
+
 
 /**
  * @author Henry McKinney on March, 2024
+ * @author David White on March, 2024
  */
 
 import { Button } from "react-bootstrap";
 // Import to IStudentTask from local interface file
-import { IStudentTask } from "../../pages/StudentTasks/interfaces";
+import { IStudentTask } from "./interfaces";
 
 // Use IStudentTask for the Row type
 type Fn = (row: Row<IStudentTask>) => void;
@@ -19,6 +22,7 @@ const columnHelper = createColumnHelper<IStudentTask>();
 // Accessor represents DB key but for this we are using assignments.json.
 // If in production table keys differ from columns accessors below they should be adjusted accordingly.
 export const studentTaskColumns = () => [
+
   columnHelper.accessor("name", {
     header: "Name",
   }),
@@ -27,6 +31,7 @@ export const studentTaskColumns = () => [
   }),
   columnHelper.accessor("topic", {
     header: "Topic",
+    
   }),
   columnHelper.accessor("current_stage", {
     header: "Current Stage",
@@ -39,9 +44,16 @@ export const studentTaskColumns = () => [
     header: "Has Badge",
   }),
   columnHelper.accessor("stage_deadline", {
-    header: "Stage Deadline",
-  }),
+    header: props => (
+      <>
+        <span>Stage Deadline</span>
+          <ToolTip id={`stage-deadline-tooltip`} info={"You can change \"Preferred Time Zone\" in \"Profile\" in the banner."} />
+      </>),  }),
   columnHelper.accessor("publishing_rights", {
-    header: "Publishing Rights",
+    header: props => (
+      <>
+        <span>Publishing Rights</span>
+          <ToolTip id={`publishing-rights-tooltip`} info={"Grant publishing rights?"} />
+      </>),
   }),
 ];
