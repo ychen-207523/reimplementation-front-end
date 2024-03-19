@@ -1,0 +1,34 @@
+.taskbox {
+    padding: 5px;
+    margin-bottom: 39px;
+    border: 1px dashed #999999;
+    float: left;
+    font-size: 12px;
+    background: none repeat scroll 0pt 0pt #fafaea;
+}
+
+.tasknum {
+    color: #FFFFFF;
+    background-color: #B73204;
+}
+
+.revnum {
+    color: #FFFFFF;
+    background-color: #999999;
+}
+
+.notification a {
+    color:#0066CC
+}
+
+.student-tasks .table-striped>tbody>tr:nth-of-type(odd)>td,
+.student-tasks .table-striped>tbody>tr:nth-of-type(odd)>th {
+  background-color: #ffffff;
+  --bs-table-bg-type: none
+}
+
+.student-tasks .table-striped>tbody>tr:nth-of-type(even)>td,
+.student-tasks .table-striped>tbody>tr:nth-of-type(even)>th {
+  background-color: #f2f2f2;
+  --bs-table-bg-type: none;
+}

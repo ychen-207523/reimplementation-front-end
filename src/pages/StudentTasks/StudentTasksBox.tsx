@@ -1,5 +1,4 @@
 import React from 'react';
-import "./StudentTasksBox.css"
 import {Duty, Revision, StudentsTeamedWith} from './interfaces'
 
 interface StudentTasksBoxParampeters {
@@ -66,3 +65,5 @@ export const StudentTasksBox: React.FC<StudentTasksBoxParampeters> = ({ duties, 
   )
 
 }
+
+export default StudentTasksBox;
