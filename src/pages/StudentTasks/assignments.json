@@ -57,23 +57,23 @@
     "duties": [
         {
             "name": "CSC517-Assignment 1",
-            "dueDate": "2024-03-10"
+            "dueDate": "2024-03-18"
         },
         {
             "name": "CSC517-Assignment 2",
-            "dueDate": "2024-03-05"
+            "dueDate": "2024-03-18"
         },
         {
             "name": "CSC517-Assignment 3",
-            "dueDate": "2024-03-22"
+            "dueDate": "2024-03-18"
         },
         {
             "name": "CSC522-Assignment 1",
-            "dueDate": "2025-01-26"
+            "dueDate": "2024-03-25"
         },
         {
             "name": "CSC522-Assignment 2",
-            "dueDate": "2025-03-21"
+            "dueDate": "2024-03-28"
         }
     ],
     "revisions": [
