@@ -56,23 +56,23 @@
     ],
     "duties": [
         {
-            "name": "Assignment 1",
+            "name": "CSC517-Assignment 1",
             "dueDate": "2024-03-10"
         },
         {
-            "name": "Past duty",
+            "name": "CSC517-Assignment 2",
             "dueDate": "2024-03-05"
         },
         {
-            "name": "Future duty",
-            "dueDate": "2024-03-26"
+            "name": "CSC517-Assignment 3",
+            "dueDate": "2024-03-22"
         },
         {
-            "name": "Project 1",
+            "name": "CSC522-Assignment 1",
             "dueDate": "2025-01-26"
         },
         {
-            "name": "Personal project",
+            "name": "CSC522-Assignment 2",
             "dueDate": "2025-03-21"
         }
     ],
