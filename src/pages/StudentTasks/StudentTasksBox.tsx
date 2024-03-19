@@ -28,11 +28,15 @@ export const StudentTasksBox: React.FC<StudentTasksBoxParampeters> = ({ duties, 
         &nbsp;&nbsp;<span className="tasknum">&nbsp;{tasksNotStarted.length}&nbsp;</span> Tasks not yet started<br />
       </strong>
       <br />
-      {tasksNotStarted.map(task => (
-        <div>
-          <span> &nbsp; &raquo; {task.name} ({calculateDaysLeft(task.dueDate)} left)</span>
-        </div>
-      ))}
+      {tasksNotStarted.map(task => {
+        const daysLeft = calculateDaysLeft(task.dueDate);
+        const dayText = daysLeft > 1 ? 'days' : 'day';
+        return (
+          <div>
+            <span> &nbsp; &raquo; {task.name} ({daysLeft} {dayText} left)</span>
+          </div>
+        )
+      })}
 
       <br />
       <strong>
@@ -52,12 +56,13 @@ export const StudentTasksBox: React.FC<StudentTasksBoxParampeters> = ({ duties, 
             <strong>&nbsp;&nbsp;<span className="tasknum">&nbsp;
               {students.length}&nbsp;</span>
               &nbsp;&nbsp;{semester}
-              <br /></strong><br />
+              </strong><br />
             {students.map((student => (
               <div>
                 <span className="notification">&nbsp; &raquo; {student} </span>
               </div>
             )))}
+            <br/>
           </div>
         ))
       }
