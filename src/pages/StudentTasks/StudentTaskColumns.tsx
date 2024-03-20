@@ -1,6 +1,7 @@
 import { BsPencilFill, BsPersonXFill } from "react-icons/bs";
 import { Row, createColumnHelper } from "@tanstack/react-table";
 import ToolTip from "components/ToolTip";
+import Checkbox from "components/Checkbox"
 
 
 /**
@@ -55,5 +56,9 @@ export const studentTaskColumns = () => [
         <span>Publishing Rights</span>
           <ToolTip id={`publishing-rights-tooltip`} info={"Grant publishing rights?"} />
       </>),
+
+    cell: props => (
+        <Checkbox id="checkbox" defaultChecked ={props.getValue()}></Checkbox>
+    )
   }),
 ];
