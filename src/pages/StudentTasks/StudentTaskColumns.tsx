@@ -57,16 +57,17 @@ export const studentTaskColumns = () => [
           <ToolTip id={`stage-deadline-tooltip`} info={"You can change \"Preferred Time Zone\" in \"Profile\" in the banner."} />
       </>),
       filterFn: "equals"  }),
-  columnHelper.accessor("publishing_rights", {
+  columnHelper.accessor((row) => row.publishing_rights.toString(), {
     header: props => (
       <>
         <span>Publishing Rights</span>
           <ToolTip id={`publishing-rights-tooltip`} info={"Grant publishing rights?"} />
-      </>),
-
+      </>),   
+    id: "publishing_rights",
     cell: props => (
-        <Checkbox id="checkbox" defaultChecked ={props.getValue()}></Checkbox>
+      <Checkbox id="checkbox" defaultChecked = {props.getValue() === "true"}></Checkbox>
     ),
-    filterFn: "equals"
+    filterFn: "equals",
+
   }),
 ];
