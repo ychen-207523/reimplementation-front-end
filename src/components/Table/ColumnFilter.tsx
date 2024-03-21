@@ -8,23 +8,41 @@ import DebouncedInput from "./DebouncedInput";
 
 interface FilterProps {
   column: Column<any>;
+  dropdownOptions?: string[];
 }
 
-const ColumnFilter: React.FC<FilterProps> = ({ column }) => {
-  const [filterValue, setFilterValue] = [column.getFilterValue, column.setFilterValue];
+const ColumnFilter: React.FC<FilterProps> = ({ column, dropdownOptions }) => {
+  const [filterValue, setFilterValue] = [column.getFilterValue() ?? "", column.setFilterValue];
   const searchHandler = useCallback(
     (value: string | number) => setFilterValue(value),
     [setFilterValue]
   );
 
-  return (
-    <DebouncedInput
-      className="w-75"
-      onChange={searchHandler}
-      value={filterValue() ?? ""}
-      placeholder="Search"
-    />
-  );
+  if (dropdownOptions) {
+    return (
+      <select
+        className="w-75"
+        onChange={(e) => searchHandler(e.target.value)}
+        value={filterValue.toString()}
+      >
+        <option value="">All</option>
+        {dropdownOptions.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    );
+  } else {
+    return (
+      <DebouncedInput
+        className="w-75"
+        onChange={searchHandler}
+        value={filterValue}
+        placeholder="Search"
+      />
+    );
+  }
 };
 
 export default ColumnFilter;
