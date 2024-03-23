@@ -1,6 +1,7 @@
 import { BsPencilFill, BsPersonXFill } from "react-icons/bs";
 import { Row, createColumnHelper } from "@tanstack/react-table";
 import ToolTip from "components/ToolTip";
+import Checkbox from "components/Checkbox"
 
 
 /**
@@ -25,35 +26,48 @@ export const studentTaskColumns = () => [
 
   columnHelper.accessor("name", {
     header: "Name",
+    filterFn: "equals"
   }),
   columnHelper.accessor("course_name", {
     header: "Course Name",
+    filterFn: "equals"
   }),
   columnHelper.accessor("topic", {
     header: "Topic",
+    filterFn: "equals"
     
   }),
   columnHelper.accessor("current_stage", {
     header: "Current Stage",
+    filterFn: "equals"
   }),
   columnHelper.accessor((row) => row.review_grade?.comment, {
     header: "Review Comment",
     id: "review_comment", // Custom ID since this is a derived accessor
+    filterFn: "equals"
   }),
   columnHelper.accessor("has_badge", {
     header: "Has Badge",
+    filterFn: "equals"
   }),
   columnHelper.accessor("stage_deadline", {
     header: props => (
       <>
         <span>Stage Deadline</span>
           <ToolTip id={`stage-deadline-tooltip`} info={"You can change \"Preferred Time Zone\" in \"Profile\" in the banner."} />
-      </>),  }),
-  columnHelper.accessor("publishing_rights", {
+      </>),
+      filterFn: "equals"  }),
+  columnHelper.accessor((row) => row.publishing_rights.toString(), {
     header: props => (
       <>
         <span>Publishing Rights</span>
           <ToolTip id={`publishing-rights-tooltip`} info={"Grant publishing rights?"} />
-      </>),
+      </>),   
+    id: "publishing_rights",
+    cell: props => (
+      <Checkbox id="checkbox" defaultChecked = {props.getValue() === "true"}></Checkbox>
+    ),
+    filterFn: "equals",
+
   }),
 ];

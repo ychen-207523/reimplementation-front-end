@@ -189,22 +189,7 @@ const Table: React.FC<TableProps> = ({
                             <ColumnFilter column={header.column} />
                           ) : columnSearchMode === 'dropdown' && header.column.getCanFilter() ? (
                             // If columnSearchMode is 'dropdown', render a dropdown for filtering
-                            <select
-                              onChange={(e) => {
-                                const value = e.target.value;
-                                // Update the columnFilters state with the new filter value for the corresponding column
-                                setColumnFilters((old) => old.map(filter =>
-                                  filter.id === header.id ? {...filter, value: value} : filter
-                                ));
-                              }}
-                            >
-                              {/* Map through dropdown options for the current column */}
-                              {dropdownOptions[header.column.id]?.map((option, index) => (
-                                <option key={index} value={option}>
-                                  {option}
-                                </option>
-                              ))}
-                            </select>
+                            <ColumnFilter column={header.column} dropdownOptions={dropdownOptions[header.column.id]} />
                           ) : null}
                           {/* End of conditional rendering for column filters */}
                         </>
