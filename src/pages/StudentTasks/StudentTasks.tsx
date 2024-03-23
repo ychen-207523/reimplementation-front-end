@@ -49,7 +49,40 @@ const StudentTasks = () => {
 
   // Memoize the table data to use assignments from testData
   const tableData = useMemo(() => testData.assignments, []);
-  
+
+  // Create dropdownOptions from tableData
+  const dropdownOptions = useMemo(() => {
+    // Extract unique values for each column
+    const nameOptions = Array.from(new Set(tableData.map(a => a.name)));
+    const courseNameOptions = Array.from(new Set(tableData.map(a => a.course_name)));
+    const topicOptions = Array.from(new Set(tableData.map(a => a.topic)));
+    const currentStageOptions = Array.from(new Set(tableData.map(a => a.current_stage)));
+    const reviewCommentOptions = Array.from(
+      new Set(
+        tableData
+          .map(a =>
+            typeof a.review_grade === 'object' ? a.review_grade?.comment : a.review_grade
+          )
+          .filter(c => c != null)
+      )
+    );
+    const hasBadgeOptions = Array.from(new Set(tableData.map(a => String(a.has_badge))));
+    const stageDeadlineOptions = Array.from(new Set(tableData.map(a => a.stage_deadline)));
+    const publishingRightsOptions = Array.from(new Set(tableData.map(a => String(a.publishing_rights))));
+
+    return {
+      name: nameOptions,
+      course_name: courseNameOptions,
+      topic: topicOptions,
+      current_stage: currentStageOptions,
+      review_comment: reviewCommentOptions,
+      has_badge: hasBadgeOptions,
+      stage_deadline: stageDeadlineOptions,
+      publishing_rights: publishingRightsOptions,
+    };
+  }, [tableData]); // Recalculate if tableData changes
+
+
   // Render the component with the Table component and necessary controls
   return (
     <div className="student-tasks">
@@ -76,9 +109,10 @@ const StudentTasks = () => {
           <Table
             data={tableData}
             columns={tableColumns}
+            columnSearchMode={'dropdown'} // Can be 'none', 'input', or 'dropdown'
+            dropdownOptions={dropdownOptions}
             headerCellStyle={{background: "#f2f2f2"}}
-            // isLoading prop and related conditions can be uncommented when fetching data asynchronously
-            // isLoading={isLoading}
+            // ... other props
           />
         </Suspense>
         {/* Any other UI components like modals for confirmation can be put here */}
