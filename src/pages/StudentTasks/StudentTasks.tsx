@@ -92,7 +92,7 @@ const StudentTasks = () => {
         */}
         <Row className="mb-2">
           <Col>
-            <h2>Student Tasks</h2>
+            <h2>Assignments</h2>
           </Col>
         </Row>
 
