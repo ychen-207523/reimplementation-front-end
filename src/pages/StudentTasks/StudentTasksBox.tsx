@@ -1,7 +1,7 @@
 import React from 'react';
 import {Duty, Revision, StudentsTeamedWith} from './interfaces'
 
-interface StudentTasksBoxParampeters {
+interface StudentTasksBoxParameter {
   duties: Duty[];
   revisions: Revision[];
   studentsTeamedWith: StudentsTeamedWith;
@@ -10,7 +10,7 @@ interface StudentTasksBoxParampeters {
 /**
  * @author Yunfei Chen on March, 2023
  */
-export const StudentTasksBox: React.FC<StudentTasksBoxParampeters> = ({ duties, revisions, studentsTeamedWith }) => {
+export const StudentTasksBox: React.FC<StudentTasksBoxParameter> = ({ duties, revisions, studentsTeamedWith }) => {
 
   const calculateDaysLeft = (dueDate: string) => {
     const today = new Date();
