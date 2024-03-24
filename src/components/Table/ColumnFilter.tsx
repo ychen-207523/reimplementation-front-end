@@ -8,6 +8,7 @@ import DebouncedInput from "./DebouncedInput";
 
 interface FilterProps {
   column: Column<any>;
+  // add dropdownOptions parameter
   dropdownOptions?: string[];
 }
 
@@ -17,7 +18,7 @@ const ColumnFilter: React.FC<FilterProps> = ({ column, dropdownOptions }) => {
     (value: string | number) => setFilterValue(value),
     [setFilterValue]
   );
-
+  // if the dropdownOptions is not empty, the page will show the dropdown layout.
   if (dropdownOptions) {
     return (
       <select

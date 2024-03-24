@@ -26,12 +26,14 @@ export const StudentTasksBox: React.FC<StudentTasksBoxParameter> = ({ duties, re
 
   return (
     <div className="taskbox" style={{ width: '18%', display: 'inline', float: 'left', marginRight: '10px' }}>
+      {/*The Tasks not yer started part*/}
       <strong>
         &nbsp;&nbsp;<span className="tasknum">&nbsp;{tasksNotStarted.length}&nbsp;</span> Tasks not yet started<br />
       </strong>
       <br />
       {tasksNotStarted.map(task => {
         const daysLeft = calculateDaysLeft(task.dueDate);
+        // if the daysLeft is bigger than one, it should return days, otherwise, return day
         const dayText = daysLeft > 1 ? 'days' : 'day';
         return (
           <div>
@@ -39,13 +41,14 @@ export const StudentTasksBox: React.FC<StudentTasksBoxParameter> = ({ duties, re
           </div>
         )
       })}
-
+      {/*Please improve or delete this part if the purpose of revisions is clear*/}
       <br />
       <strong>
         &nbsp;&nbsp;<span className="revnum">&nbsp;{revisions.length}&nbsp;</span> Revisions<br />
       </strong>
       <br />
 
+      {/*The Students who have teamed with you part */}
       <br />
       <strong>
         Students who have teamed with you<br />
