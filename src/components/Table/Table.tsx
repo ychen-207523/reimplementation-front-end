@@ -46,7 +46,7 @@ const Table: React.FC<TableProps> = ({
   columnVisibility = {},
   tableSize = { span: 12, offset: 0 },
   headerCellStyle = {},
-  columnSearchMode = 'input',
+  columnSearchMode = 'input', // default when creating a Table
   dropdownOptions = {},
 
 }) => {
