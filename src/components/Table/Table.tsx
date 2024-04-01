@@ -82,7 +82,7 @@ const Table: React.FC<TableProps> = ({
     };
     return [selectableColumn, ...columns];
   }, [columns]);
-
+  const [searchBarVisible, setSearchBarVisible] = useState(true);
   const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState<string | number>("");
@@ -156,6 +156,15 @@ const Table: React.FC<TableProps> = ({
             {/* GlobalFilter allows searching across all columns */}
             <GlobalFilter filterValue={globalFilter} setFilterValue={setGlobalFilter} />
           </Col>
+          <Col md={{ offset: 10 }}>
+            <input
+              type="checkbox"
+              checked={searchBarVisible}
+              onChange={e => setSearchBarVisible(e.target.checked)}
+              className="form-check-input"
+            />
+            <label style={{ fontSize: 13 }}>&nbsp;Enable/Disable Search</label>
+          </Col>
         </Row>
       )}
       <Row>
@@ -164,7 +173,7 @@ const Table: React.FC<TableProps> = ({
             <thead className="table-secondary">
             {getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
+              {headerGroup.headers.map((header) => {
                   return (
                     <th key={header.id} colSpan={header.colSpan} style={headerCellStyle}>
                       {header.isPlaceholder ? null : (
@@ -185,13 +194,12 @@ const Table: React.FC<TableProps> = ({
                             }[header.column.getIsSorted() as string] ?? null}
                           </div>
                           {/* Conditional rendering for column filters based on columnSearchMode */}
-                          {columnSearchMode === 'input' && header.column.getCanFilter() ? (
-                            // If columnSearchMode is 'input', render the ColumnFilter component
+                          {columnSearchMode === 'input' && header.column.getCanFilter() && searchBarVisible ? (
                             <ColumnFilter column={header.column} />
-                          ) : columnSearchMode === 'dropdown' && header.column.getCanFilter() ? (
-                            // If columnSearchMode is 'dropdown', render a dropdown for filtering
+                          ) : columnSearchMode === 'dropdown' && header.column.getCanFilter() && searchBarVisible ? (
                             <ColumnFilter column={header.column} dropdownOptions={dropdownOptions[header.column.id]} />
                           ) : null}
+
                           {/* End of conditional rendering for column filters */}
                         </>
                       )}
