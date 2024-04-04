@@ -10,7 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import React, {useEffect, useMemo, useRef, useState} from "react";
-import {Col, Container, Row, Table as BTable} from "react-bootstrap";
+import {Col, Container, Row, Button, Table as BTable} from "react-bootstrap";
 import ColumnFilter from "./ColumnFilter";
 import GlobalFilter from "./GlobalFilter";
 import Pagination from "./Pagination";
@@ -157,13 +157,10 @@ const Table: React.FC<TableProps> = ({
             <GlobalFilter filterValue={globalFilter} setFilterValue={setGlobalFilter} />
           </Col>
           <Col md={{ offset: 10 }}>
-            <input
-              type="checkbox"
-              checked={searchBarVisible}
-              onChange={e => setSearchBarVisible(e.target.checked)}
-              className="form-check-input"
-            />
-            <label style={{ fontSize: 13 }}>&nbsp;Enable/Disable Search</label>
+            <Button variant="primary" onClick={() => setSearchBarVisible(searchBarVisible => !searchBarVisible)}>
+                {searchBarVisible ? 'Disable Filters' : 'Enable Filters'}
+              </Button>
+
           </Col>
         </Row>
       )}
