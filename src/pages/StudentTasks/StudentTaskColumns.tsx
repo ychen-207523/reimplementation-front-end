@@ -24,11 +24,11 @@ const columnHelper = createColumnHelper<IStudentTask>();
 // If in production table keys differ from columns accessors below they should be adjusted accordingly.
 export const studentTaskColumns = () => [
 
-  columnHelper.accessor("name", {
+  columnHelper.accessor("assignment", {
     header: "Name",
     filterFn: "equals"
   }),
-  columnHelper.accessor("course_name", {
+  columnHelper.accessor("courseName", {
     header: "Course Name",
     filterFn: "equals"
   }),
@@ -57,15 +57,15 @@ export const studentTaskColumns = () => [
           <ToolTip id={`stage-deadline-tooltip`} info={"You can change \"Preferred Time Zone\" in \"Profile\" in the banner."} />
       </>),
       filterFn: "equals"  }),
-  columnHelper.accessor((row) => row.publishing_rights.toString(), {
+  columnHelper.accessor("publishing_rights", {
     header: props => (
       <>
         <span>Publishing Rights</span>
           <ToolTip id={`publishing-rights-tooltip`} info={"Grant publishing rights?"} />
-      </>),   
+      </>),
     id: "publishing_rights",
     cell: props => (
-      <Checkbox id="checkbox" defaultChecked = {props.getValue() === "true"}></Checkbox>
+      <Checkbox id="checkbox" defaultChecked = {false}></Checkbox>
     ),
     filterFn: "equals",
 

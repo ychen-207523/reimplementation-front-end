@@ -57,13 +57,13 @@ export const StudentTasksBox: React.FC<StudentTasksBoxParameter> = ({ duties, re
 
       {
         Object.entries(studentsTeamedWith).map(([semester, students]) => (
-          <div>
+          <div key={semester}>
             <strong>&nbsp;&nbsp;<span className="tasknum">&nbsp;
               {students.length}&nbsp;</span>
               &nbsp;&nbsp;{semester}
               </strong><br />
             {students.map((student => (
-              <div>
+              <div key={student}>
                 <span className="notification">&nbsp; &raquo; {student} </span>
               </div>
             )))}

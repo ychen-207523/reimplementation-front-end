@@ -6,11 +6,13 @@ import { Button, Container, Row, Col } from 'react-bootstrap';
 import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./StudentTaskColumns"; // Defined in StudentTaskColumns.tsx
 import testData from './assignments.json';
 import "./StudentTasks.css";
+import useAPI from "hooks/useAPI";
 
 
 /**
  * @author Henry McKinney on March, 2024
  * @author David White on March, 2024
+ * @author Yunfei Chen on April, 2024
  */
 
 // Use Lazy loading for components. Forward promise after two seconds.
@@ -27,19 +29,43 @@ const StudentTasksBox = lazy(() => fakeDelay(import('./StudentTasksBox')));
 
 const StudentTasks = () => {
   // These hooks can be uncommented and used when integrating API calls
-  // const { error, isLoading, data: studentTasks, sendRequest: fetchStudentTasks } = useAPI();
-  // const { data: coursesResponse, sendRequest: fetchCourses } = useAPI();
+  const { error, isLoading, data: studentTasks, sendRequest: fetchStudentTasks } = useAPI();
+  const { data: coursesResponse, sendRequest: fetchCourses } = useAPI();
 
   const duties = testData.duties;
   const taskRevisions = testData.revisions;
   const studentsTeamedWith = testData.studentsTeamedWith;
 
-  // Commented out useEffect for fetching student tasks from an API. Uncomment when needed.
-  /*
+  const fetchData = useCallback(async () => {
+    try {
+      const [assignments, courses] = await Promise.all([
+        fetchStudentTasks({ url: `/student_tasks/list` }),
+        fetchCourses({ url: '/courses' }),
+      ]);
+      // Handle the responses as needed
+    } catch (err) {
+      // Handle any errors that occur during the fetch
+      console.error("Error fetching data:", err);
+    }
+  }, [fetchStudentTasks, fetchCourses]);
+
   useEffect(() => {
-    fetchStudentTasks({ url: '/assignments' }); // Verify this is the correct endpoint
-  }, [fetchStudentTasks]);
-  */
+    fetchData();
+  }, [fetchData]);
+
+
+  let mergedData: Array<any & { courseName?: string }> = [];
+
+  if (studentTasks && coursesResponse) {
+    mergedData = studentTasks.data.map((assignment: any) => {
+      const course = coursesResponse.data.find((c: any) => c.id === assignment.course_id);
+      return { ...assignment, courseName: course ? course.name : 'Unknown' };
+    });
+  }
+  console.log(mergedData)
+
+
+
 
   // Define the table columns with callbacks
   const tableColumns = useMemo(
@@ -53,26 +79,26 @@ const StudentTasks = () => {
   // Create dropdownOptions from tableData
   const dropdownOptions = useMemo(() => {
     // Extract unique values for each column
-    const nameOptions = Array.from(new Set(tableData.map(a => a.name)));
-    const courseNameOptions = Array.from(new Set(tableData.map(a => a.course_name)));
-    const topicOptions = Array.from(new Set(tableData.map(a => a.topic)));
-    const currentStageOptions = Array.from(new Set(tableData.map(a => a.current_stage)));
+    const nameOptions = Array.from(new Set(mergedData.map(a => a.assignment)));
+    const courseNameOptions = Array.from(new Set(mergedData.map(a => a.courseName)));
+    const topicOptions = Array.from(new Set(mergedData.map(a => a.topic)));
+    const currentStageOptions = Array.from(new Set(mergedData.map(a => a.current_stage)));
     const reviewCommentOptions = Array.from(
       new Set(
-        tableData
+        mergedData
           .map(a =>
             typeof a.review_grade === 'object' ? a.review_grade?.comment : a.review_grade
           )
           .filter(c => c != null)
       )
     );
-    const hasBadgeOptions = Array.from(new Set(tableData.map(a => String(a.has_badge))));
-    const stageDeadlineOptions = Array.from(new Set(tableData.map(a => a.stage_deadline)));
-    const publishingRightsOptions = Array.from(new Set(tableData.map(a => String(a.publishing_rights))));
+    const hasBadgeOptions = Array(mergedData.length).fill(false);
+    const stageDeadlineOptions = Array.from(new Set(mergedData.map(a => a.stage_deadline)));
+    const publishingRightsOptions = Array(mergedData.length).fill(false);
 
     return {
-      name: nameOptions,
-      course_name: courseNameOptions,
+      assignment: nameOptions,
+      courseName: courseNameOptions,
       topic: topicOptions,
       current_stage: currentStageOptions,
       review_comment: reviewCommentOptions,
@@ -80,7 +106,7 @@ const StudentTasks = () => {
       stage_deadline: stageDeadlineOptions,
       publishing_rights: publishingRightsOptions,
     };
-  }, [tableData]); // Recalculate if tableData changes
+  }, [mergedData]); // Recalculate if tableData changes
 
 
   // Render the component with the Table component and necessary controls
@@ -107,11 +133,11 @@ const StudentTasks = () => {
         {/** Display fallback until table is loaded. */}
         <Suspense fallback={<span>Loading table...</span>}>
           <Table
-            data={tableData}
+            data={mergedData}
             columns={tableColumns}
             columnSearchMode={'dropdown'} // Can be 'none', 'input', or 'dropdown'
             dropdownOptions={dropdownOptions}
-            headerCellStyle={{background: "#f2f2f2"}}
+            headerCellStyle={{ background: "#f2f2f2" }}
             // ... other props
           />
         </Suspense>
