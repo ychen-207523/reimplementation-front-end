@@ -10,7 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import React, {useEffect, useMemo, useRef, useState} from "react";
-import {Col, Container, Row, Table as BTable} from "react-bootstrap";
+import {Col, Container, Row, Button, Table as BTable} from "react-bootstrap";
 import ColumnFilter from "./ColumnFilter";
 import GlobalFilter from "./GlobalFilter";
 import Pagination from "./Pagination";
@@ -82,7 +82,7 @@ const Table: React.FC<TableProps> = ({
     };
     return [selectableColumn, ...columns];
   }, [columns]);
-
+  const [searchBarVisible, setSearchBarVisible] = useState(true);
   const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState<string | number>("");
@@ -156,6 +156,12 @@ const Table: React.FC<TableProps> = ({
             {/* GlobalFilter allows searching across all columns */}
             <GlobalFilter filterValue={globalFilter} setFilterValue={setGlobalFilter} />
           </Col>
+          <Col md={{ offset: 10 }}>
+            <Button variant="primary" onClick={() => setSearchBarVisible(searchBarVisible => !searchBarVisible)}>
+                {searchBarVisible ? 'Disable Filters' : 'Enable Filters'}
+              </Button>
+
+          </Col>
         </Row>
       )}
       <Row>
@@ -164,7 +170,7 @@ const Table: React.FC<TableProps> = ({
             <thead className="table-secondary">
             {getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
+              {headerGroup.headers.map((header) => {
                   return (
                     <th key={header.id} colSpan={header.colSpan} style={headerCellStyle}>
                       {header.isPlaceholder ? null : (
@@ -185,13 +191,12 @@ const Table: React.FC<TableProps> = ({
                             }[header.column.getIsSorted() as string] ?? null}
                           </div>
                           {/* Conditional rendering for column filters based on columnSearchMode */}
-                          {columnSearchMode === 'input' && header.column.getCanFilter() ? (
-                            // If columnSearchMode is 'input', render the ColumnFilter component
+                          {columnSearchMode === 'input' && header.column.getCanFilter() && searchBarVisible ? (
                             <ColumnFilter column={header.column} />
-                          ) : columnSearchMode === 'dropdown' && header.column.getCanFilter() ? (
-                            // If columnSearchMode is 'dropdown', render a dropdown for filtering
+                          ) : columnSearchMode === 'dropdown' && header.column.getCanFilter() && searchBarVisible ? (
                             <ColumnFilter column={header.column} dropdownOptions={dropdownOptions[header.column.id]} />
                           ) : null}
+
                           {/* End of conditional rendering for column filters */}
                         </>
                       )}
