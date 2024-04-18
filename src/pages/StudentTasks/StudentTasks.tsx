@@ -4,6 +4,7 @@ import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./StudentTaskColumns
 import testData from './assignments.json';
 import "./StudentTasks.css";
 import useAPI from "hooks/useAPI";
+import { format, parseISO } from 'date-fns';
 
 
 /**
@@ -27,6 +28,7 @@ const StudentTasksBox = lazy(() => fakeDelay(import('./StudentTasksBox')));
 const StudentTasks = () => {
   // These hooks can be uncommented and used when integrating API calls
   const { error, isLoading, data: studentTasks, sendRequest: fetchStudentTasks } = useAPI();
+  const { data: assignmentResponse, sendRequest: fetchAssignments } = useAPI();
   const { data: coursesResponse, sendRequest: fetchCourses } = useAPI();
 
   const duties = testData.duties;
@@ -37,6 +39,7 @@ const StudentTasks = () => {
     try {
       const [assignments, courses] = await Promise.all([
         fetchStudentTasks({ url: `/student_tasks/list` }),
+        fetchAssignments({ url: `/assignments` }),
         fetchCourses({ url: '/courses' }),
       ]);
       // Handle the responses as needed
@@ -44,24 +47,31 @@ const StudentTasks = () => {
       // Handle any errors that occur during the fetch
       console.error("Error fetching data:", err);
     }
-  }, [fetchStudentTasks, fetchCourses]);
-
+  }, [fetchStudentTasks, fetchAssignments, fetchCourses]);
+  // fetch data from backend
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-
   let mergedData: Array<any & { courseName?: string }> = [];
 
-  if (studentTasks && coursesResponse) {
-    mergedData = studentTasks.data.map((assignment: any) => {
+  if (studentTasks && assignmentResponse && coursesResponse) {
+    mergedData = studentTasks.data.map((studentTask: any) => {
+      // Find the related assignment from assignmentResponse using assignment name
+      const assignment = assignmentResponse.data.find((a: any) => a.name === studentTask.assignment);
+      // Using the course_id from the related assignment, find the course from coursesResponse
       const course = coursesResponse.data.find((c: any) => c.id === assignment.course_id);
-      return { ...assignment, courseName: course ? course.name : 'Unknown' };
+      return {
+        ...studentTask,
+        courseName: course ? course.name : 'Unknown', // Add the course name to the merged data
+      };
     });
   }
-  // Set the publishing_rights to be false
+
+
+  // set the stage_deadline to the correct format
   mergedData.forEach(row => {
-    row.publishing_rights = false;
+    row.stage_deadline = format(parseISO(row.stage_deadline), "yyyy-MM-dd HH:mm:ssXXX");
   });
 
   // Define the table columns with callbacks
