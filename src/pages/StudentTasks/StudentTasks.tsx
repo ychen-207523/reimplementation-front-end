@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useCallback, useMemo, Suspense, lazy } from 'react';
-// import { useNavigate } from 'react-router-dom'; // Uncomment if navigation is needed in the future
-// Removed useAPI import as it's currently not needed for JSON data. Uncomment when fetching data from an API.
-// import useAPI from "hooks/useAPI";
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import { studentTaskColumns as STUDENT_TASK_COLUMNS } from "./StudentTaskColumns"; // Defined in StudentTaskColumns.tsx
 import testData from './assignments.json';
@@ -62,19 +59,16 @@ const StudentTasks = () => {
       return { ...assignment, courseName: course ? course.name : 'Unknown' };
     });
   }
-  console.log(mergedData)
-
-
-
+  // Set the publishing_rights to be false
+  mergedData.forEach(row => {
+    row.publishing_rights = false;
+  });
 
   // Define the table columns with callbacks
   const tableColumns = useMemo(
     () => STUDENT_TASK_COLUMNS(),
     []
   );
-
-  // Memoize the table data to use assignments from testData
-  const tableData = useMemo(() => testData.assignments, []);
 
   // Create dropdownOptions from tableData
   const dropdownOptions = useMemo(() => {
@@ -94,7 +88,7 @@ const StudentTasks = () => {
     );
     const hasBadgeOptions = Array(mergedData.length).fill(false);
     const stageDeadlineOptions = Array.from(new Set(mergedData.map(a => a.stage_deadline)));
-    const publishingRightsOptions = Array(mergedData.length).fill(false);
+    const publishingRightsOptions = Array.from(new Set(mergedData.map(a => a.publishing_rights)));
 
     return {
       assignment: nameOptions,
