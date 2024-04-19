@@ -25,6 +25,6 @@ export interface IStudentTask {
   };
   has_badge: boolean;
   stage_deadline: Date
-  publishing_rights: boolean
+  permission_granted: boolean
 
 }

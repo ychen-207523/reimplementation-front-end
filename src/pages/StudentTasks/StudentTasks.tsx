@@ -30,7 +30,6 @@ const StudentTasks = () => {
   const { error, isLoading, data: studentTasks, sendRequest: fetchStudentTasks } = useAPI();
   const { data: assignmentResponse, sendRequest: fetchAssignments } = useAPI();
   const { data: coursesResponse, sendRequest: fetchCourses } = useAPI();
-
   const duties = testData.duties;
   const taskRevisions = testData.revisions;
   const studentsTeamedWith = testData.studentsTeamedWith;
@@ -98,7 +97,7 @@ const StudentTasks = () => {
     );
     const hasBadgeOptions = Array(mergedData.length).fill(false);
     const stageDeadlineOptions = Array.from(new Set(mergedData.map(a => a.stage_deadline)));
-    const publishingRightsOptions = Array.from(new Set(mergedData.map(a => a.publishing_rights)));
+    const publishingRightsOptions = Array.from(new Set(mergedData.map(a => String(a.permission_granted))));
 
     return {
       assignment: nameOptions,
@@ -108,7 +107,7 @@ const StudentTasks = () => {
       review_comment: reviewCommentOptions,
       has_badge: hasBadgeOptions,
       stage_deadline: stageDeadlineOptions,
-      publishing_rights: publishingRightsOptions,
+      permission_granted: publishingRightsOptions,
     };
   }, [mergedData]); // Recalculate if tableData changes
 
