@@ -16,8 +16,8 @@ export interface StudentsTeamedWith {
 
 // Interface for matching columns to assignment table columns
 export interface IStudentTask {
-  name: string;
-  course_name: string;
+  assignment: string;
+  courseName: string;
   topic: string;
   current_stage: string;
   review_grade: {
@@ -25,6 +25,6 @@ export interface IStudentTask {
   };
   has_badge: boolean;
   stage_deadline: Date
-  publishing_rights: boolean
+  permission_granted: boolean
 
 }
