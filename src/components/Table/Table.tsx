@@ -82,7 +82,7 @@ const Table: React.FC<TableProps> = ({
     };
     return [selectableColumn, ...columns];
   }, [columns]);
-  const [searchBarVisible, setSearchBarVisible] = useState(true);
+  const [searchBarVisible, setSearchBarVisible] = useState(false);
   const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState<string | number>("");
